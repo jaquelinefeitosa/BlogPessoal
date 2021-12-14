@@ -1,4 +1,5 @@
 package org.generation.blogpessoal.model;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,7 +26,7 @@ public class Tema {
 
     @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("tema")
-    private List<Postagem>postagem;
+    private List<Postagem> postagem;
 
     public long getId() {
         return id;
@@ -52,8 +53,4 @@ public class Tema {
     }
 
     
-
-
-
-
 }

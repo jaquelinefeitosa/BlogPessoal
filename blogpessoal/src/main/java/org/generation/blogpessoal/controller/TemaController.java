@@ -19,54 +19,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/temas")
-@CrossOrigin (origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TemaController {
     
     @Autowired
     private TemaRepository repository;
 
-    @GetMapping 
-    public ResponseEntity <List <Tema>> getALL() {
-        return ResponseEntity.ok(repository.findAll());       
-    }
-    // retornar uma postagem pelo id
-    @GetMapping("/{id}")
-    public ResponseEntity<Tema> GetById(@PathVariable long id){
-        return repository.findById(id)
-                .map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
-    }
+    // retornar todos os temas existentes
+    @GetMapping
+	public ResponseEntity<List<Tema>> getAll(){
+		return ResponseEntity.ok(repository.findAll());
+	}
+	
+    // procurar um ema pelo id
+	@GetMapping("/{id}")
+	public ResponseEntity<Tema> getById(@PathVariable long id){
+		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
 
-    // procurar um tema pelo nome
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Tema>> GetByName(@PathVariable String nome){
-        return ResponseEntity.ok(repository.findAllByDescricaoContaininglgnoreCase(nome));
-    }
+	// procurar um tema pelo nome
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<List<Tema>> getByName(@PathVariable String nome){
+		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
+	}
+	
+    // inserir um novo dado no BD
+	@PostMapping
+	public ResponseEntity<Tema> post (@RequestBody Tema tema){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(repository.save(tema));
+	}
 
-   // inserir dados no banco de dados
-    @PostMapping
-    public ResponseEntity<Tema> post(@RequestBody Tema tema)
-    {
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
-    }
+    // atualizar dados ja existentes
+	@PutMapping
+	public ResponseEntity<Tema> put (@RequestBody Tema tema){
+		return ResponseEntity.ok(repository.save(tema));				
+	}
 
-    // atualizar um dado ja existente no banco de dados
-    @PutMapping
-    public ResponseEntity<Tema> put(@RequestBody Tema tema)
-    {
-        return ResponseEntity.ok(repository.save(tema));
-    }
-
-    //deletar dados do banco de dados.
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id)
-    {
-        repository.deleteById(id);
-    }
-
-
-    
-
-
-
-
+    // deletar um dado pelo id
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable long id) {
+		repository.deleteById(id);
+	}
 }
