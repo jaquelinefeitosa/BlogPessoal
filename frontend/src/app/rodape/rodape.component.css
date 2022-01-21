@@ -1,0 +1,39 @@
+footer.nb-footer {
+background: #222;
+}
+
+footer.nb-footer .about {
+margin: 0 auto;
+max-width: 1170px;
+text-align: center; }
+
+footer.nb-footer .about p {
+font-size: 13px;
+color: #999;
+}
+
+footer.nb-footer .about .social-media a img {
+width: 30px;
+height: 30px;
+line-height: 30px;
+border-radius: 50%;
+font-size: 16px;
+color: #313131;
+border: 1px solid #111;
+margin-right: 5px;
+}
+
+footer.nb-footer .about .social-media a img:hover {
+background: #313131;
+color: #fff;
+border-color: #313131; }
+
+footer.nb-footer .copyright {
+color: #999;
+
+}
+
+footer.nb-footer .copyright p {
+margin: 0;
+padding: 0; 
+}
